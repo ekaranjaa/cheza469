@@ -1,5 +1,6 @@
 import express from "express";
-import * as userController from '../controllers/usersController.js'
+import * as usersController from '../controllers/usersController.js'
+import * as gamesController from '../controllers/gamesController.js'
 
 const router = express.Router()
 
@@ -10,19 +11,33 @@ router.get('/', (req, res) => {
 
 // Users
 router.get('/users', async (req, res) => {
-	res.json(await userController.index())
+	res.json(await usersController.index())
 })
 router.get('/users/:id', async (req, res) => {
-	res.json(await userController.show(req.params.id))
+	res.json(await usersController.show(req.params.id))
 })
 router.post('/users', async (req, res) => {
-	res.json(await userController.store(req.body))
+	res.json(await usersController.store(req.body))
 })
 router.put('/users/:id', async (req, res) => {
-	res.json(await userController.update(req.params.id, req.body))
+	res.json(await usersController.update(req.params.id, req.body))
 })
 router.delete('/users/:id', async (req, res) => {
-	res.json(await userController.destroy(req.params.id))
+	res.json(await usersController.destroy(req.params.id))
+})
+
+// Games
+router.get('/games', async (req, res) => {
+	res.json(await gamesController.index())
+})
+router.get('/games/:id', async (req, res) => {
+	res.json(await gamesController.show(req.params.id))
+})
+router.post('/games', async (req, res) => {
+	res.json(await gamesController.store(req.body))
+})
+router.put('/games/:id', async (req, res) => {
+	res.json(await gamesController.update(req.params.id, req.body))
 })
 
 export default router

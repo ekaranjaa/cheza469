@@ -19,8 +19,8 @@ model User {
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   Subscription Subscription[]
-  Wallet Wallet?
-  Rank Rank?
+  Wallet       Wallet?
+  Rank         Rank?
 }
 
 model Game {
@@ -29,8 +29,8 @@ model Game {
   isSubscription Boolean        @default(false)
   price          Int?
   parentId       String?
-  parent         Game?          @relation("ParentGame", fields: [parentId], references: [id])
-  parents        Game[]         @relation("ParentGame")
+  parent         Game?          @relation("ChildGame", fields: [parentId], references: [id])
+  children       Game[]         @relation("ChildGame")
   Subscription   Subscription[]
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
@@ -47,19 +47,19 @@ model Subscription {
 }
 
 model Wallet {
-  id      String @id @default(uuid())
-  balance Json
-  userId String @unique
-  user User @relation(fields: [userId], references: [id])
+  id        String   @id @default(uuid())
+  balance   Json
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Rank {
-  id      String @id @default(uuid())
-  balance Json
-  userId String @unique
-  user User @relation(fields: [userId], references: [id])
+  id        String   @id @default(uuid())
+  balance   Json
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
